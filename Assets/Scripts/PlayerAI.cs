@@ -11,9 +11,11 @@ public class PlayerAI : MonoBehaviour
     [SerializeField] float _speed = 4;
     float _newY;
     Vector2 _newPosition;
+    AudioSource _audioSource;
     // Start is called before the first frame update
     void Start()
     {
+        _audioSource = GetComponent<AudioSource>();
         float camHeigt = Camera.main.orthographicSize;
         float yOffset = GetComponent<BoxCollider2D>().size.y * transform.localScale.y / 2;
         _maxY = Camera.main.transform.position.y + camHeigt - yOffset;
@@ -31,5 +33,8 @@ public class PlayerAI : MonoBehaviour
         transform.position = Vector2.MoveTowards(transform.position, _newPosition, _speed * Time.deltaTime);    
     }
 
-
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        _audioSource.Play();
+    }
 }

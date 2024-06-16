@@ -12,7 +12,7 @@ public class Ball : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-       LaunchBall();
+      // LaunchBall();
        
     }
 
@@ -24,13 +24,17 @@ public class Ball : MonoBehaviour
     private void OnTriggerEnter2D(Collider2D collision)
     {
       
-        _rb.transform.position = _spawnPosition;
+       ResetBall();
         LaunchBall();
     }
-    void LaunchBall()
+   public void LaunchBall()
     {
         _rb.velocity = Vector2.zero;
         _direction = new Vector2(1, Random.Range(-.3f, .3f));
         _rb.AddForce(_direction * _forceMagnitude);
+    }
+    public void ResetBall()
+    {
+        _rb.transform.position = _spawnPosition;
     }
 }
